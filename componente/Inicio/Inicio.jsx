@@ -1,10 +1,13 @@
+import estilo from './Inicio.pcss';
+
 class Inicio extends Component {
     constructor(props) {
         super(props);
     }
     render() {
         return (
-            <div>
+            <div className={ `tela ${ estilo.inicio }` }>
+                <img src={ require('./imagem.png') } />
                 Início
             </div>
         );

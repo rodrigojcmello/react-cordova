@@ -1,4 +1,5 @@
 import { render } from 'react-dom';
+
 // import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 // import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -14,7 +15,7 @@ if (process.env.NODE_ENV == 'production') console.log = () => {};
 // Estilo
 // ---------------------------------------------------------------------------------------------------------------------
 
-// import './index.pcss';
+import '../assets/html/pcss/_index.pcss';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Compoenente

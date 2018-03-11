@@ -8,9 +8,6 @@ const config = {
         filename: 'pacote.min.js',
         path: `${ __dirname }/cordova/www`
     },
-    resolve: {
-        extensions: ['.js', '.jsx'],
-    },
     module: {
         rules: [
             {
@@ -26,6 +23,41 @@ const config = {
                     sourceMaps: !producao
                 },
                 exclude: /node_modules/
+            },
+            {
+                test: /\.p?css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            localIdentName: '[name]--[hash:base64:5]',
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            ident: 'postcss',
+                            sourceMap: true,
+                            plugins: [
+                                require('postcss-import')(),
+                                require('precss')(),
+                                require('postcss-color-function')(),
+                                require('autoprefixer')(),
+                                require('postcss-calc')()
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(jpe?g|png|gif|eot|woff2?|ttf|svg)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: { name: 'assets/[ext]/[name].[ext]' }
+                }]
             }
         ]
     },
@@ -49,13 +81,14 @@ if (producao) {
             'process.env': { 'NODE_ENV': JSON.stringify('production') }
         })
     );
-    config.plugins.push(new UglifyJSPlugin());
 }
 
 // Desenvolvimento -----------------------------------------------------------------------------------------------------
 
 else {
-    config.devtool = 'cheap-module-eval-source-map';
+    // config.devtool = 'cheap-module-eval-source-map';
+    // config.devtool = 'eval';
+    config.devtool = 'inline-source-map';
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
