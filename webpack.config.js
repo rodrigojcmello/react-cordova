@@ -78,6 +78,11 @@ if (producao) {
 // Desenvolvimento -----------------------------------------------------------------------------------------------------
 
 else {
+    config.plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': { 'NODE_ENV': JSON.stringify('development') }
+        })
+    );
     config.devtool = 'inline-source-map';
 }
 
