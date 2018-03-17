@@ -46,5 +46,16 @@
             "semi": [1, "always", { "omitLastInOneLineBlock": true }],
             "quotes": [1, "single"]
         }
+    },
+    "stylelint": {
+        "rules": {
+            "unit-no-unknown": true,
+            "property-no-unknown": true,
+            "selector-type-no-unknown": true,
+            "no-invalid-double-slash-comments": true,
+            "no-duplicate-selectors": true,
+            "no-descending-specificity": true,
+            "unit-case": "lower"
+        }
     }
 }

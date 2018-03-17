@@ -7,7 +7,7 @@ class Inicio extends Component {
     }
     render() {
         return (
-            <div className={ `tela inicio` }>
+            <div className={ 'tela inicio' }>
                 <img src={ require('./imagem.png') } />
                 Início
             </div>
