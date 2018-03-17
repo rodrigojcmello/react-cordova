@@ -29,18 +29,10 @@ const config = {
                 use: [
                     'style-loader',
                     {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            localIdentName: '[name]--[hash:base64:5]',
-                            sourceMap: true
-                        }
-                    },
-                    {
                         loader: 'postcss-loader',
                         options: {
                             ident: 'postcss',
-                            sourceMap: true,
+                            sourceMap: 'inline',
                             plugins: [
                                 require('postcss-import')(),
                                 require('precss')(),
@@ -86,8 +78,6 @@ if (producao) {
 // Desenvolvimento -----------------------------------------------------------------------------------------------------
 
 else {
-    // config.devtool = 'cheap-module-eval-source-map';
-    // config.devtool = 'eval';
     config.devtool = 'inline-source-map';
 }
 

@@ -1,4 +1,5 @@
-import estilo from './Inicio.pcss';
+// import estilo from './Inicio.pcss';
+import './Inicio.pcss';
 
 class Inicio extends Component {
     constructor(props) {
@@ -6,7 +7,7 @@ class Inicio extends Component {
     }
     render() {
         return (
-            <div className={ `tela ${ estilo.inicio }` }>
+            <div className={ `tela inicio` }>
                 <img src={ require('./imagem.png') } />
                 Início
             </div>
