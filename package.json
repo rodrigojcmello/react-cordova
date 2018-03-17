@@ -20,10 +20,13 @@
         "file-loader": "^1.1.11",
         "html-webpack-plugin": "^3.0.6",
         "immutability-helper": "^2.6.6",
+        "lodash": "^4.17.5",
         "postcss-calc": "^6.0.1",
         "postcss-color-function": "^4.0.1",
         "postcss-import": "^11.1.0",
         "postcss-loader": "^2.1.1",
+        "pouchdb": "^6.4.3",
+        "pouchdb-find": "^6.4.3",
         "precss": "^3.1.2",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
@@ -43,8 +46,17 @@
             }
         },
         "rules": {
-            "semi": [1, "always", { "omitLastInOneLineBlock": true }],
-            "quotes": [1, "single"]
+            "semi": [
+                1,
+                "always",
+                {
+                    "omitLastInOneLineBlock": true
+                }
+            ],
+            "quotes": [
+                1,
+                "single"
+            ]
         }
     },
     "stylelint": {
