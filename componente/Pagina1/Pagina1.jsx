@@ -24,9 +24,9 @@ class Pagina1 extends Component {
     }
     componentDidMount() {
         console.log('Pagina1 - componentDidMount()');
-        MensagemController.sincronizar();
-        MensagemController.listar(this.definirMensagem.bind(this));
-        MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
+        // MensagemController.sincronizar();
+        // MensagemController.listar(this.definirMensagem.bind(this));
+        // MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
     }
     render() {
         return (
