@@ -8,6 +8,10 @@ const config = {
         filename: 'pacote.min.js',
         path: `${ __dirname }/cordova/www`
     },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        mainFields: ['browser', 'main', 'module']
+    },
     module: {
         rules: [
             {

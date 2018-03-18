@@ -34,17 +34,8 @@ const Mensagem = {
                 })
             );
         }).then((resposta) => {
-            console.log('PouchDB - Mensagem find', resposta.docs);
-			let mensagens = {};
-			_.forEach(resposta.docs, (mensagem) => {
-				if (!mensagens[mensagem.categoria]) {
-					mensagens[mensagem.categoria] = [];
-				}
-				mensagens[mensagem.categoria].push(mensagem);
-			});
-			console.log('PouchDB - Itens por lista', mensagens);
-			store.set('mensagens', mensagens);
-            definirItens(mensagens);
+            console.log('PouchDB - Mensagem encontradas', resposta.docs);
+            definirItens(resposta.docs);
         }).catch((erro) => {
             console.error('PouchDB - Erro ao listar mensagens', erro);
         });

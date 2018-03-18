@@ -7,12 +7,7 @@ class Pagina1 extends Component {
         super(props);
         this.state = {
             entrada: '',
-            mensagem: [
-                { texto: 'Teste 1' },
-                { texto: 'Teste 2' },
-                { texto: 'Teste 3' },
-                { texto: 'Teste 4' }
-            ]
+            mensagem: []
         };
     }
     atualizarEntrada(evento) {
@@ -20,10 +15,18 @@ class Pagina1 extends Component {
     }
     enviarMensagem(evento) {
         evento.preventDefault();
-        MensagemController.adicionar({
-            texto: this.entrada.value
-        });
+        MensagemController.adicionar(this.entrada.value);
         console.log('Enviado!');
+    }
+    definirMensagem(mensagem) {
+        console.log('Pagina1 - definirMensagem()', mensagem);
+        this.setState({ mensagem: mensagem });
+    }
+    componentDidMount() {
+        console.log('Pagina1 - componentDidMount()');
+        MensagemController.sincronizar();
+        MensagemController.listar(this.definirMensagem.bind(this));
+        MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
     }
     render() {
         return (
