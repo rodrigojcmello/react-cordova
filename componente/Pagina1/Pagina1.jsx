@@ -24,9 +24,9 @@ class Pagina1 extends Component {
     }
     componentDidMount() {
         console.log('Pagina1 - componentDidMount()');
-        // MensagemController.sincronizar();
-        // MensagemController.listar(this.definirMensagem.bind(this));
-        // MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
+        MensagemController.sincronizar();
+        MensagemController.listar(this.definirMensagem.bind(this));
+        MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
     }
     render() {
         return (
@@ -35,7 +35,7 @@ class Pagina1 extends Component {
                 <ul>
                     { _.map(this.state.mensagem, (mensagem, index) => {
                         return (
-                            <li key={ index }>{ mensagem.texto }</li>
+                            <li key={ index }>{ mensagem.usuario }: { mensagem.texto }</li>
                         );
                     }) }
                 </ul>

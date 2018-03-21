@@ -11,11 +11,26 @@ console.log('MensagemController');
 
 const Mensagem = {
 
+	// sincronizar: () => {
+	// 	Mensagem.sinc = PouchDB.sync('mensagem', `${ config.host }:5984/mensagem`, {
+	// 		live: true,
+	// 		retry: true
+	// 	}, (erro) => {
+	// 		console.error('PouchDB - Erro ao sincronizar os mensagens', erro);
+	// 	});
+	// },
+
 	sincronizar: () => {
 		Mensagem.sinc = PouchDB.sync('mensagem', `${ config.host }:5984/mensagem`, {
 			live: true,
-			retry: true
-		}, (erro) => {
+			retry: true,
+			filter: (doc) => {
+				console.log('doc', doc);
+				return doc.usuario === 'fulano';
+			}
+		}).on('change', (info) => {
+			console.log('info', info);
+		}).on('error', (erro) => {
 			console.error('PouchDB - Erro ao sincronizar os mensagens', erro);
 		});
 	},
@@ -44,9 +59,10 @@ const Mensagem = {
 	ouvirMudancas: (definirItens) => {
 		Mensagem.mudanças = db.changes({
 			since: 'now',
-			live: true
+			live: true,
+			include_docs: true
 		}).on('change', () => {
-			console.log('PouchDB - Mudanças nos mensagens');
+			console.log('PouchDB - Mudanças nas mensagens');
 			Mensagem.listar(definirItens);
 		});
 	},
@@ -57,6 +73,7 @@ const Mensagem = {
 
 	adicionar: (texto) => {
 		db.post({
+			usuario: 'rodrigo',
 			texto: texto,
 			data_criacao: new Date(),
 		}).then((resposta) => {

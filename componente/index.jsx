@@ -58,7 +58,8 @@ class App extends Component {
                 <div>
                     <Route path='/entrar' component={ Entrar } />
                     <Route path='/inicio' component={ Inicio } />
-                    <Autenticado path='/pagina1' component={ Pagina1 } />
+                    {/* <Autenticado path='/pagina1' component={ Pagina1 } /> */}
+                    <Route path='/pagina1' component={ Pagina1 } />
                     <Route path='/pagina2' component={ Pagina2 } />
                 </div>
             </HashRouter>
