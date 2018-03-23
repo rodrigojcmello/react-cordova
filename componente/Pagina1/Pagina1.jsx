@@ -24,9 +24,12 @@ class Pagina1 extends Component {
     }
     componentDidMount() {
         console.log('Pagina1 - componentDidMount()');
-        MensagemController.sincronizar();
-        MensagemController.listar(this.definirMensagem.bind(this));
-        MensagemController.ouvirMudancas(this.definirMensagem.bind(this));
+        MensagemController.sincronizar(this.definirMensagem.bind(this));
+    }
+    componentWillUnmount() {
+        console.log('Pagina1 - componentWillUnmount');
+        MensagemController.sincRemoto.cancel();
+        MensagemController.sincLocal.cancel();
     }
     render() {
         return (
