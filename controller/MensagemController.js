@@ -14,8 +14,9 @@ const Mensagem = {
 
 	sincronizar: (definirMensagem) => {
 		Mensagem.sincRemoto = dbRemoto.replicate.to(dbLocal, {
+			retry: true,
 			filter: 'mydesign/myfilter',
-			query_params: { usuario: 'jessica' }
+			query_params: { usuario: 'rodrigo' }
 		}).on('complete', (info) => { // TODO: E se estiver offline? Completa mesmo assim?
 			console.log('PouchDB Mensagem - Sincronização completa com a base remota', info);
 			Mensagem.listar(definirMensagem);
@@ -26,7 +27,7 @@ const Mensagem = {
 				live: true,
 				retry: true,
 				filter: 'mydesign/myfilter',
-				query_params: { usuario: 'jessica' }
+				query_params: { usuario: 'rodrigo' }
 			}).on('change', (info) => {
 				console.log('PouchDB Mensagem - Mudança na base remota', info);
 				Mensagem.listar(definirMensagem);
@@ -48,19 +49,22 @@ const Mensagem = {
 
 			// ---------------------------------------------------------------------------------------------------------
 
+		}).on('paused', (erro) => {
+			console.error('PouchDB Mensagem - Pausada sincronização com base remota', erro);
+			Mensagem.listar(definirMensagem);
 		}).on('error', (erro) => {
-			console.error('PouchDB Mensagem - Erro ao receber mudança', erro);
+			console.error('PouchDB Mensagem - Erro ao sincroniar base remota', erro);
 		});
 	},
 
 	listar: (definirItens) => {
         dbLocal.createIndex({
-            index: { fields: ['data_criacao'] }
+            index: { fields: ['usuario'] }
         }).then(() => {
             return (
                 dbLocal.find({
                     selector: {
-						data_criacao: { $gt: null }
+						usuario: { $eq: 'rodrigo' }
 					}
                 })
             );
@@ -74,7 +78,7 @@ const Mensagem = {
 
 	adicionar: (texto) => {
 		dbLocal.post({
-			usuario: 'jessica',
+			usuario: 'rodrigo',
 			texto: texto,
 			data_criacao: new Date(),
 		}).then((resposta) => {
