@@ -26,6 +26,7 @@
         "postcss-import": "^11.1.0",
         "postcss-loader": "^2.1.1",
         "pouchdb": "^6.4.3",
+        "pouchdb-authentication": "^1.1.2",
         "pouchdb-find": "^6.4.3",
         "precss": "^3.1.2",
         "react": "^16.2.0",

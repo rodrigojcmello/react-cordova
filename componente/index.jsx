@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import Entrar from './Entrar/Entrar.jsx';
+import Cadastro from './Cadastro/Cadastro.jsx';
+import Acesso from './Acesso/Acesso.jsx';
 import Inicio from './Inicio/Inicio.jsx';
 import Pagina1 from './Pagina1/Pagina1.jsx';
 import Pagina2 from './Pagina2/Pagina2.jsx';
@@ -36,7 +37,7 @@ const Autenticado = ({ component: Component, ...rest }) => (
         false ?
         <Component { ...rest } /> :
         <Redirect to={{
-            pathname: '/entrar',
+            pathname: '/acesso',
             state: { from: rest.location }
         }} />
     )} />
@@ -56,7 +57,8 @@ class App extends Component {
         return (
             <HashRouter>
                 <div>
-                    <Route path='/entrar' component={ Entrar } />
+                    <Route path='/cadastro' component={ Cadastro } />
+                    <Route path='/acesso' component={ Acesso } />
                     <Route path='/inicio' component={ Inicio } />
                     {/* <Autenticado path='/pagina1' component={ Pagina1 } /> */}
                     <Route path='/pagina1' component={ Pagina1 } />
@@ -75,8 +77,8 @@ class App extends Component {
         //                 >
         //                     <Switch location={ props.location }>
         //                         <Route
-        //                             path='/entrar'
-        //                             component={ Entrar }
+        //                             path='/acesso'
+        //                             component={ Acesso }
         //                         />
         //                         <Route
         //                             path='/inicio'
