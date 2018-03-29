@@ -1,4 +1,4 @@
-import MensagemController from '../../controller/MensagemController.js';
+import Nota from '../../database/Nota';
 
 import './Pagina1.pcss';
 
@@ -7,47 +7,46 @@ class Pagina1 extends Component {
         super(props);
         this.state = {
             entrada: '',
-            mensagem: []
+            notas: []
         };
+        this.form = {};
     }
     atualizarEntrada(evento) {
         this.setState({ entrada: evento.target.value });
     }
-    enviarMensagem(evento) {
+    enviarNota(evento) {
+        console.log('enviarNota()');
         evento.preventDefault();
-        MensagemController.adicionar(this.entrada.value);
-        console.log('Enviado!');
+        Nota.adicionar({
+            texto: this.form.entrada.value,
+            usuario: 'Rodrigo Mello'
+        });
     }
-    definirMensagem(mensagem) {
-        console.log('Pagina1 - definirMensagem()', mensagem);
-        this.setState({ mensagem: mensagem });
+    definirNotas(notas) {
+        console.log('definirNotas()', notas);
+        this.setState({ notas: notas });
     }
     componentDidMount() {
-        console.log('Pagina1 - componentDidMount()');
-        MensagemController.sincronizar(this.definirMensagem.bind(this));
-    }
-    componentWillUnmount() {
-        console.log('Pagina1 - componentWillUnmount');
-        MensagemController.sincRemoto.cancel();
-        MensagemController.sincLocal.cancel();
+        console.log('componentDidMount()');
+        Nota.init(this.definirNotas.bind(this));
     }
     render() {
         return (
             <div className='tela pagina1'>
                 <h1>Página 1</h1>
                 <ul>
-                    { _.map(this.state.mensagem, (mensagem, index) => {
+                    { _.map(this.state.notas, (nota, index) => {
                         return (
-                            <li key={ index }>{ mensagem.usuario }: { mensagem.texto }</li>
+                            <li key={ index }>{ nota.usuario }: { nota.texto }</li>
                         );
                     }) }
                 </ul>
-                <form onSubmit={ this.enviarMensagem.bind(this) }>
+                <form onSubmit={ this.enviarNota.bind(this) }>
                     <input
                         className='entrada'
                         onChange={ this.atualizarEntrada.bind(this) }
                         placeholder='digite aqui...'
-                        ref={ el => this.entrada = el }
+                        ref={ el => this.form.entrada = el }
                         type='text'
                         value={ this.state.entrada }
                     />
