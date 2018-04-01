@@ -19,10 +19,12 @@ class Pagina1 extends Component {
         this.props.Firebase.adicionarNota({
             collection: `${ 'rodrigo' }/${ 'financeiro' }/${ 'contas a pagar' }`,
             nota: {
+                usuario: 'Rodrigo Mello',
                 texto: this.form.entrada.value,
                 data_criacao: Date.now()
             }
         });
+        this.setState({ entrada: '' });
     }
     definirNotas(notas) {
         console.log('definirNotas()', notas);
@@ -30,12 +32,6 @@ class Pagina1 extends Component {
     }
     componentDidMount() {
         console.log('componentDidMount()');
-        // if (this.props.firebaseInit) {
-            // this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));            
-        // }
-        // setTimeout(() => {
-        //     this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));            
-        // }, 700);
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log('Pagina1 - getDerivedStateFromProps nextProps', nextProps);
@@ -49,16 +45,11 @@ class Pagina1 extends Component {
         console.log('Pagina1 - componentDidUpdate prevState', prevState);
         console.log('Pagina1 - componentDidUpdate prevProps', prevProps);
         console.log('Pagina1 - componentDidUpdate snapshot', snapshot);
-        if (!prevState.firebaseInit_3) {
-            if (prevState.firebaseInit && !prevState.firebaseInit_2) {
+        if (!prevState.firebaseInit_2) {
+            if (prevState.firebaseInit) {
                 console.log('Pagina1 - componentDidUpdate IF');
                 this.setState({ firebaseInit_2: true });
-            } else if (prevState.firebaseInit && prevState.firebaseInit_2) {
-                console.log('Pagina1 - componentDidUpdate IF 2');
-                this.setState({ firebaseInit_3: true });
                 this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));
-            } else {
-                console.log('ELSE', prevState.firebaseInit, this.state.firebaseInit);
             }
         }
     }
