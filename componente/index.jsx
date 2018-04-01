@@ -1,7 +1,11 @@
 import { render } from 'react-dom';
 
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+import Firebase from '../firebase';
 
 import Cadastro from './Cadastro/Cadastro.jsx';
 import Acesso from './Acesso/Acesso.jsx';
@@ -50,10 +54,19 @@ class App extends Component {
             transicao: 'esmanhecer-avancar',
             usuario: {
                 email: null
-            }
+            },
+            firebaseInit: false
         };
     }
+    atualizarFirebaseInit() {  
+        console.log('atualizarFirebaseInit()');        
+        this.setState({ firebaseInit: !this.state.firebaseInit });
+    }
+    componentDidMount() {
+        Firebase.init(this.atualizarFirebaseInit.bind(this));
+    }    
     render() {
+        console.log('firebaseInit', this.state.firebaseInit);
         return (
             <HashRouter>
                 <div>
@@ -61,8 +74,16 @@ class App extends Component {
                     <Route path='/acesso' component={ Acesso } />
                     <Route path='/inicio' component={ Inicio } />
                     {/* <Autenticado path='/pagina1' component={ Pagina1 } /> */}
-                    <Route path='/pagina1' component={ Pagina1 } />
+                    <Route path='/pagina1' render={ () => <Pagina1
+                        Firebase={ Firebase }
+                        firebaseInit={ this.state.firebaseInit }
+                    /> } />
                     <Route path='/pagina2' component={ Pagina2 } />
+                    <div>
+                        <Link to='/acesso'>acesso</Link>
+                        <Link to='/pagina1'>pagina1</Link>
+                        <Link to='/pagina2'>pagina2</Link>
+                    </div>
                 </div>
             </HashRouter>
         );

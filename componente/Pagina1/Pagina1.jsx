@@ -1,5 +1,3 @@
-import Nota from '../../database/Nota';
-
 import './Pagina1.pcss';
 
 class Pagina1 extends Component {
@@ -10,6 +8,7 @@ class Pagina1 extends Component {
             notas: []
         };
         this.form = {};
+        // this.getDerivedStateFromProps = this.getDerivedStateFromProps.bind(this);
     }
     atualizarEntrada(evento) {
         this.setState({ entrada: evento.target.value });
@@ -17,9 +16,12 @@ class Pagina1 extends Component {
     enviarNota(evento) {
         console.log('enviarNota()');
         evento.preventDefault();
-        Nota.adicionar({
-            texto: this.form.entrada.value,
-            usuario: 'Rodrigo Mello'
+        this.props.Firebase.adicionarNota({
+            collection: `${ 'rodrigo' }/${ 'financeiro' }/${ 'contas a pagar' }`,
+            nota: {
+                texto: this.form.entrada.value,
+                data_criacao: Date.now()
+            }
         });
     }
     definirNotas(notas) {
@@ -28,9 +30,40 @@ class Pagina1 extends Component {
     }
     componentDidMount() {
         console.log('componentDidMount()');
-        Nota.init(this.definirNotas.bind(this));
+        // if (this.props.firebaseInit) {
+            // this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));            
+        // }
+        // setTimeout(() => {
+        //     this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));            
+        // }, 700);
+    }
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log('Pagina1 - getDerivedStateFromProps nextProps', nextProps);
+        console.log('Pagina1 - getDerivedStateFromProps prevState', prevState);
+        if (nextProps.firebaseInit === prevState.firebaseInit) {
+            return null;
+        }
+        return { firebaseInit: true };
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('Pagina1 - componentDidUpdate prevState', prevState);
+        console.log('Pagina1 - componentDidUpdate prevProps', prevProps);
+        console.log('Pagina1 - componentDidUpdate snapshot', snapshot);
+        if (!prevState.firebaseInit_3) {
+            if (prevState.firebaseInit && !prevState.firebaseInit_2) {
+                console.log('Pagina1 - componentDidUpdate IF');
+                this.setState({ firebaseInit_2: true });
+            } else if (prevState.firebaseInit && prevState.firebaseInit_2) {
+                console.log('Pagina1 - componentDidUpdate IF 2');
+                this.setState({ firebaseInit_3: true });
+                this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));
+            } else {
+                console.log('ELSE', prevState.firebaseInit, this.state.firebaseInit);
+            }
+        }
     }
     render() {
+        console.log('render', this.state.firebaseInit);
         return (
             <div className='tela pagina1'>
                 <h1>Página 1</h1>
