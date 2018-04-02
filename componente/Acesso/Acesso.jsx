@@ -15,19 +15,24 @@ class Acesso extends Component {
     atualizarSenha(evento) {
         this.setState({ senha: evento.target.value });
     }
-    autenticarUsuario(evento) {
-        console.log('Acesso - autenticarUsuario()');
+    autenticarEmail(evento) {
+        console.log('Acesso - autenticarEmail()');
         evento.preventDefault();
         this.props.Firebase.usuario.autenticar.email({
             email: this.form.email.value,
             senha: this.form.senha.value
         });
     }
+    autenticarFacebook(evento) {
+        console.log('Acesso - autenticarFacebook()');
+        evento.preventDefault();
+        this.props.Firebase.usuario.cadastrar.facebook();
+    }
     render() {
         return (
             <div className='tela acesso'>
                 <h1>Acesso</h1>
-                <form onSubmit={ this.autenticarUsuario.bind(this) }>
+                <form onSubmit={ this.autenticarEmail.bind(this) }>
                     <input
                         className='campo'
                         onChange={ this.atualizarEmail.bind(this) }
@@ -47,6 +52,9 @@ class Acesso extends Component {
                     <button className='botao'>
                         Enviar
                     </button>
+                </form>
+                <form onSubmit={ this.autenticarFacebook.bind(this) }>
+                    <button>Acessar com Facebook</button>
                 </form>
             </div>
         );
