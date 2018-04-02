@@ -58,20 +58,24 @@ class App extends Component {
             firebaseInit: false
         };
     }
-    atualizarFirebaseInit() {  
-        console.log('atualizarFirebaseInit()');        
+    atualizarFirebaseInit() {
+        console.log('atualizarFirebaseInit()');
         this.setState({ firebaseInit: !this.state.firebaseInit });
     }
     componentDidMount() {
         Firebase.init(this.atualizarFirebaseInit.bind(this));
-    }    
+    }
     render() {
         console.log('firebaseInit', this.state.firebaseInit);
         return (
             <HashRouter>
                 <div>
-                    <Route path='/cadastro' component={ Cadastro } />
-                    <Route path='/acesso' component={ Acesso } />
+                    <Route path='/cadastro' render={ () => <Cadastro 
+                        Firebase={ Firebase }
+                    /> } />
+                    <Route path='/acesso' component={ () => <Acesso
+                        Firebase={ Firebase }
+                    /> } />
                     <Route path='/inicio' component={ Inicio } />
                     {/* <Autenticado path='/pagina1' component={ Pagina1 } /> */}
                     <Route path='/pagina1' render={ () => <Pagina1

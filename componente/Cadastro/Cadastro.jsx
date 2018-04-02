@@ -1,5 +1,3 @@
-import UsuarioController from '../../controller/UsuarioController.js';
-
 import './Cadastro.pcss';
 
 class Cadastro extends Component {
@@ -24,8 +22,8 @@ class Cadastro extends Component {
     cadastrarUsuario(evento) {
         evento.preventDefault();
         console.log('Acesso - cadastrarUsuario()');
-        UsuarioController.cadastrar({
-            nome: this.form.nome.value,
+        this.props.Firebase.usuario.cadastrar.email({
+            // nome: this.form.nome.value,
             email: this.form.email.value,
             senha: this.form.senha.value
         });

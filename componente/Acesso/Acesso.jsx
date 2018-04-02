@@ -1,31 +1,25 @@
-import UsuarioController from '../../controller/UsuarioController.js';
-
 import './Acesso.pcss';
 
 class Acesso extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            nome: '',
+            email: '',
             senha: ''
         };
         this.form = {};
     }
-    atualizarNome(evento) {
-        this.setState({ nome: evento.target.value });
+    atualizarEmail(evento) {
+        this.setState({ email: evento.target.value });
     }
     atualizarSenha(evento) {
         this.setState({ senha: evento.target.value });
     }
     autenticarUsuario(evento) {
-        evento.preventDefault();
         console.log('Acesso - autenticarUsuario()');
-    }
-    autenticarUsuario(evento) {
         evento.preventDefault();
-        console.log('Acesso - autenticarUsuario()');
-        UsuarioController.autenticar({
-            nome: this.form.nome.value,
+        this.props.Firebase.usuario.autenticar.email({
+            email: this.form.email.value,
             senha: this.form.senha.value
         });
     }
@@ -36,11 +30,11 @@ class Acesso extends Component {
                 <form onSubmit={ this.autenticarUsuario.bind(this) }>
                     <input
                         className='campo'
-                        onChange={ this.atualizarNome.bind(this) }
-                        placeholder='nome'
-                        ref={ el => this.form.nome = el }
+                        onChange={ this.atualizarEmail.bind(this) }
+                        placeholder='e-mail'
+                        ref={ el => this.form.email = el }
                         type='text'
-                        value={ this.state.nome }
+                        value={ this.state.email }
                     />
                     <input
                         className='campo'

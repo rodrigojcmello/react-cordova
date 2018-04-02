@@ -16,7 +16,7 @@ class Pagina1 extends Component {
     enviarNota(evento) {
         console.log('enviarNota()');
         evento.preventDefault();
-        this.props.Firebase.adicionarNota({
+        this.props.Firebase.nota.adicionar({
             collection: `${ 'rodrigo' }/${ 'financeiro' }/${ 'contas a pagar' }`,
             nota: {
                 usuario: 'Rodrigo Mello',
@@ -47,14 +47,14 @@ class Pagina1 extends Component {
         console.log('Pagina1 - componentDidUpdate snapshot', snapshot);
         if (!prevState.firebaseInit_2) {
             if (prevState.firebaseInit) {
-                console.log('Pagina1 - componentDidUpdate IF');
+                console.log('Pagina1 - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
                 this.setState({ firebaseInit_2: true });
-                this.props.Firebase.sincronizarNotas(this.definirNotas.bind(this));
+                this.props.Firebase.nota.sincronizar(this.definirNotas.bind(this));
             }
         }
     }
     render() {
-        console.log('render', this.state.firebaseInit);
+        console.log('Pagina1 - render this.state.firebaseInit', this.state.firebaseInit);
         return (
             <div className='tela pagina1'>
                 <h1>Página 1</h1>
