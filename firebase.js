@@ -9,7 +9,7 @@ firebase.initializeApp({
 
 const Firebase = {
 
-    // Firestore -------------------------------------------------------------------------------------------------------
+    // Firestore -----------------------------------------------------------------------------------
 
     init: (atualizarFirebaseInit) => {
         console.log('Firebase.init() 1');
@@ -33,10 +33,10 @@ const Firebase = {
         });
     },
 
-    // Nota ------------------------------------------------------------------------------------------------------------
+    // Nota ----------------------------------------------------------------------------------------
 
     nota: {
-        
+
         adicionar: ({ collection, nota }) => {
             console.log('Firebase nota - adicionar()');
             Firebase.db
@@ -49,7 +49,7 @@ const Firebase = {
                 console.error('Firebase nota - Erro ao adicionar nota', erro);
             });
         },
-    
+
         sincronizar: (definirNotas) => {
             console.log('Firebase nota - sincronizar()');
             Firebase.db
@@ -61,12 +61,12 @@ const Firebase = {
                     notas.push(doc.data());
                 });
                definirNotas(notas);
-            });
+           });
         }
 
     },
 
-    // Usuário ---------------------------------------------------------------------------------------------------------
+    // Usuário -------------------------------------------------------------------------------------
 
     usuario: {
 
@@ -112,10 +112,10 @@ const Firebase = {
             email: ({ email, senha }) => {
 
                 firebase.auth().signInWithEmailAndPassword(email, senha)
-                    .then((retorno) => {
-                        console.log('Firebase - Usuário autenticado com e-mail', retorno);
-                    })
-                    .catch((erro) => {                        
+                .then((retorno) => {
+                    console.log('Firebase - Usuário autenticado com e-mail', retorno);
+                })
+                .catch((erro) => {
                     console.log('Firebase - Erro ao autenticar usuário com e-mail', erro);
                 });
 

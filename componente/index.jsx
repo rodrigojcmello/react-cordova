@@ -59,7 +59,7 @@ class App extends Component {
         };
     }
     atualizarFirebaseInit() {
-        console.log('atualizarFirebaseInit()');
+        console.log('Index - atualizarFirebaseInit()');
         this.setState({ firebaseInit: !this.state.firebaseInit });
     }
     componentDidMount() {
@@ -70,7 +70,7 @@ class App extends Component {
         return (
             <HashRouter>
                 <div>
-                    <Route path='/cadastro' render={ () => <Cadastro 
+                    <Route path='/cadastro' render={ () => <Cadastro
                         Firebase={ Firebase }
                     /> } />
                     <Route path='/acesso' component={ () => <Acesso
