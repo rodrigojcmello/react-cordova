@@ -65,7 +65,8 @@ const config = {
         new webpack.ProvidePlugin({
             React: 'react',
             Component: ['react', 'Component'],
-            _: 'lodash'
+            _: 'lodash',
+            store: 'store'
         })
     ]
 };

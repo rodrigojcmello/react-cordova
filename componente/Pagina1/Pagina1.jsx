@@ -4,8 +4,7 @@ class Pagina1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            entrada: '',
-            notas: []
+            entrada: ''
         };
         this.form = {};
     }
@@ -13,10 +12,10 @@ class Pagina1 extends Component {
         this.setState({ entrada: evento.target.value });
     }
     enviarNota(evento) {
-        console.log('enviarNota()');
+        console.log('Pagina1 - enviarNota()');
         evento.preventDefault();
         this.props.Firebase.nota.adicionar({
-            collection: `${ 'rodrigo' }/${ 'financeiro' }/${ 'contas a pagar' }`,
+            collection: store.get('usuario').uid + '/' + 'notas/gerais',
             nota: {
                 usuario: 'Rodrigo Mello',
                 texto: this.form.entrada.value,
@@ -25,12 +24,12 @@ class Pagina1 extends Component {
         });
         this.setState({ entrada: '' });
     }
-    definirNotas(notas) {
-        console.log('definirNotas()', notas);
-        this.setState({ notas: notas });
-    }
+    // definirNotas(notas) {
+    //     console.log('definirNotas()', notas);
+    //     this.setState({ notas: notas });
+    // }
     componentDidMount() {
-        console.log('componentDidMount()');
+        console.log('Pagina1 - componentDidMount()');
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log('Pagina1 - getDerivedStateFromProps nextProps', nextProps);
@@ -61,7 +60,7 @@ class Pagina1 extends Component {
             <div className='tela pagina1'>
                 <h1>Página 1</h1>
                 <ul>
-                    { _.map(this.state.notas, (nota, index) => {
+                    { _.map(this.props.notas, (nota, index) => {
                         return (
                             <li key={ index }>{ nota.usuario }: { nota.texto }</li>
                         );

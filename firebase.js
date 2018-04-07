@@ -12,14 +12,11 @@ const Firebase = {
     // Firestore -----------------------------------------------------------------------------------
 
     init: (atualizarFirebaseInit) => {
-        console.log('Firebase.init() 1');
+        console.log('Firebase Firestore - init()');
         firebase.firestore().enablePersistence()
         .then(() => {
-            console.log('Firebase.init() 2');
+            console.log('Firebase Firestore - base de dados inicializada');
             Firebase.db = firebase.firestore();
-        })
-        .then(() => {
-            console.log('Firebase.init() 3');
             atualizarFirebaseInit();
         })
         .catch((erro) => {
@@ -50,12 +47,12 @@ const Firebase = {
             });
         },
 
-        sincronizar: (definirNotas) => {
-            console.log('Firebase nota - sincronizar()');
+        sincronizar: (id_usuario, definirNotas) => {
+            console.log('Firebase Firestore - sincronizar()');
             Firebase.db
-            .collection('rodrigo/financeiro/contas a pagar')
+            .collection(`${ id_usuario }/notas`)
             .onSnapshot((resultado) => {
-                console.log('Firebase nota - Notas encontradas', resultado);
+                console.log('Firebase Firestore - notas sincronizadas', resultado);
                 let notas = [];
                 resultado.forEach((doc) => {
                     notas.push(doc.data());
@@ -82,16 +79,12 @@ const Firebase = {
                 });
             },
 
-            facebook: () => {
+            facebook: (atualizarUsuario) => {
                 var provider = new firebase.auth.FacebookAuthProvider();
                 firebase.auth().signInWithPopup(provider)
-                .then((result) => {
-                    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-                    var token = result.credential.accessToken;
-                    // The signed-in user info.
-                    var user = result.user;
-                    // ...
-                    console.log('Firebase - Usuário cadastrado com Facebook', result);
+                .then((resultado) => {
+                    console.log('Firebase - Usuário cadastrado com Facebook', resultado);
+                    atualizarUsuario(resultado.user);
                 }).catch((error) => {
                     console.log('Firebase - Erro ao cadastrar usuário com Facebook', error);
                     // Handle Errors here.

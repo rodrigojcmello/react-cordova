@@ -17,17 +17,17 @@ class Acesso extends Component {
     }
     autenticarEmail(evento) {
         console.log('Acesso - autenticarEmail()');
-        evento.preventDefault();
-        this.props.Firebase.usuario.autenticar.email({
-            email: this.form.email.value,
-            senha: this.form.senha.value
-        });
+        // evento.preventDefault();
+        // this.props.Firebase.usuario.autenticar.email({
+        //     email: this.form.email.value,
+        //     senha: this.form.senha.value
+        // });
     }
-    autenticarFacebook(evento) {
-        console.log('Acesso - autenticarFacebook()');
-        evento.preventDefault();
-        this.props.Firebase.usuario.cadastrar.facebook();
-    }
+    // autenticarFacebook(evento) {
+    //     console.log('Acesso - autenticarFacebook()');
+    //     evento.preventDefault();
+    //     this.props.Firebase.usuario.cadastrar.facebook();
+    // }
     render() {
         return (
             <div className='tela acesso'>
@@ -53,7 +53,7 @@ class Acesso extends Component {
                         Enviar
                     </button>
                 </form>
-                <form onSubmit={ this.autenticarFacebook.bind(this) }>
+                <form onSubmit={ this.props.autenticarFacebook }>
                     <button>Acessar com Facebook</button>
                 </form>
             </div>
