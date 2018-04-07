@@ -24,10 +24,9 @@ class Pagina1 extends Component {
         });
         this.setState({ entrada: '' });
     }
-    // definirNotas(notas) {
-    //     console.log('definirNotas()', notas);
-    //     this.setState({ notas: notas });
-    // }
+
+    // Ciclô ---------------------------------------------------------------------------------------
+
     componentDidMount() {
         console.log('Pagina1 - componentDidMount()');
     }
@@ -40,24 +39,27 @@ class Pagina1 extends Component {
         return { firebaseInit: true };
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('&&&&&&&&');
         console.log('Pagina1 - componentDidUpdate prevState', prevState);
         console.log('Pagina1 - componentDidUpdate this.state', this.state);
         console.log('Pagina1 - componentDidUpdate prevProps', prevProps);
         console.log('Pagina1 - componentDidUpdate snapshot', snapshot);
         if (!this.state.firebaseInit_2) {
             if (prevState.firebaseInit) {
-                console.log('### Pagina1 - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
+                console.log('Pagina1 - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
                 console.log('--------------------------------------------------------------------');
                 this.setState({ firebaseInit_2: true });
                 this.props.Firebase.nota.sincronizar(this.definirNotas.bind(this));
             }
         }
     }
+
+    // ---------------------------------------------------------------------------------------------
+
     render() {
         console.log('Pagina1 - render this.state', this.state);
         return (
             <div className='tela pagina1'>
+                <button onClick={ this.props.desconectarUsuario }>Sair</button>
                 <h1>Página 1</h1>
                 <ul>
                     { _.map(this.props.notas, (nota, index) => {

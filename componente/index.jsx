@@ -1,11 +1,10 @@
- import { render } from 'react-dom';
-
+import { render } from 'react-dom';
 import { HashRouter, Switch, Route, Redirect, Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import createHistory from 'history/createHashHistory';
 const history = createHistory();
 
-// ---------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 
 import Firebase from '../firebase';
 
@@ -15,28 +14,15 @@ import Inicio from './Inicio/Inicio.jsx';
 import Pagina1 from './Pagina1/Pagina1.jsx';
 import Pagina2 from './Pagina2/Pagina2.jsx';
 
-// Produção ------------------------------------------------------------------------------------------------------------
-
-// Desativa o console em produção
+// Produção ----------------------------------------------------------------------------------------
 
 if (process.env.NODE_ENV == 'production') console.log = () => {};
 
-// Estilo --------------------------------------------------------------------------------------------------------------
+// Estilo ------------------------------------------------------------------------------------------
 
 import '../assets/html/pcss/_index.pcss';
 
-// Compoenente ---------------------------------------------------------------------------------------------------------
-
-// const Autenticado = ({ component: Component, email, ...rest }) => (
-//     <Route { ...rest } render={ props => (
-//         email ?
-//         <Component { ...rest } /> :
-//         <Redirect to={{
-//             pathname: '/pagina2',
-//             state: { from: rest.location }
-//         }} />
-//     )} />
-// );
+// Componente --------------------------------------------------------------------------------------
 
 const Autenticado = ({ componente: Componente, id_usuario, ...resto }) => (
     <Route { ...resto } render={ props => (
@@ -48,7 +34,6 @@ const Autenticado = ({ componente: Componente, id_usuario, ...resto }) => (
                 state: { from: resto.location }
             }} />
         )
-
     )} />
 );
 
@@ -62,10 +47,6 @@ class App extends Component {
             notas: []
         };
     }
-    // atualizarFirebaseInit() {
-    //     console.log('Index - atualizarFirebaseInit()');
-    //     this.setState({ firebaseInit: !this.state.firebaseInit });
-    // }
     atualizarUsuario(usuario) {
         console.log('Index - atualizarUsuario()', usuario);
         store.set('usuario', usuario);
@@ -74,6 +55,9 @@ class App extends Component {
     autenticarFacebook(evento) {
         evento.preventDefault();
         Firebase.usuario.cadastrar.facebook(this.atualizarUsuario.bind(this));
+    }
+    desconectarUsuario() {
+        this.setState({ usuario: {} });
     }
     atualizarNotas(notas) {
         console.log('Index - atualizarNotas()', notas);
@@ -90,13 +74,11 @@ class App extends Component {
                         Firebase={ Firebase }
                     /> } />
                     <Route path='/acesso' component={ () => (
-                        this.state.usuario.uid
-                        ? <Redirect to='/pagina1' />
-                        : (
-                            <Acesso
-                                autenticarFacebook={ this.autenticarFacebook.bind(this) }
-                            />
-                        )
+                        this.state.usuario.uid ?
+                        <Redirect to='/pagina1' /> :
+                        <Acesso
+                            autenticarFacebook={ this.autenticarFacebook.bind(this) }
+                        />
                     ) } />
                     <Route path='/inicio' component={ Inicio } />
                     <Autenticado
@@ -105,6 +87,7 @@ class App extends Component {
                         notas={ this.state.notas }
                         componente={ Pagina1 }
                         Firebase={ Firebase }
+                        desconectarUsuario={ this.desconectarUsuario.bind(this) }
                     />
                     <Route path='/pagina2' component={ Pagina2 } />
                     <div>
