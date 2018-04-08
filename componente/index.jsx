@@ -69,71 +69,40 @@ class App extends Component {
     render() {
         return (
             <HashRouter>
-                <div>
-                    <Route path='/cadastro' render={ () => <Cadastro
-                        Firebase={ Firebase }
-                    /> } />
-                    <Route path='/acesso' component={ () => (
-                        this.state.usuario.uid ?
-                        <Redirect to='/pagina1' /> :
-                        <Acesso
-                            autenticarFacebook={ this.autenticarFacebook.bind(this) }
-                        />
-                    ) } />
-                    <Route path='/inicio' component={ Inicio } />
-                    <Autenticado
-                        path='/pagina1'
-                        id_usuario={ this.state.usuario.uid }
-                        notas={ this.state.notas }
-                        componente={ Pagina1 }
-                        Firebase={ Firebase }
-                        desconectarUsuario={ this.desconectarUsuario.bind(this) }
-                    />
-                    <Route path='/pagina2' component={ Pagina2 } />
-                    <div>
-                        <Link to='/acesso'>acesso</Link>
-                        <Link to='/pagina1'>pagina1</Link>
-                        <Link to='/pagina2'>pagina2</Link>
-                    </div>
-                </div>
+                <Route render={ (props) => (
+                    <TransitionGroup>
+                        <CSSTransition
+                            classNames={ this.state.transicao }
+                            key={ props.location.pathname.split('/')[1] || '/' }
+                            timeout={ 600 }
+                        >
+                            <Switch location={ props.location }>
+                                <Route path='/cadastro' render={ () => <Cadastro
+                                    Firebase={ Firebase }
+                                /> } />
+                                <Route path='/acesso' component={ () => (
+                                    this.state.usuario.uid ?
+                                    <Redirect to='/pagina1' /> :
+                                    <Acesso
+                                        autenticarFacebook={ this.autenticarFacebook.bind(this) }
+                                    />
+                                ) } />
+                                <Route path='/inicio' component={ Inicio } />
+                                <Autenticado
+                                    componente={ Pagina1 }
+                                    desconectarUsuario={ this.desconectarUsuario.bind(this) }
+                                    Firebase={ Firebase }
+                                    id_usuario={ this.state.usuario.uid }
+                                    notas={ this.state.notas }
+                                    path='/pagina1'
+                                />
+                                <Route path='/pagina2' component={ Pagina2 } />
+                            </Switch>
+                        </CSSTransition>
+                    </TransitionGroup>
+                ) } />
             </HashRouter>
         );
-        // return (
-        //     <HashRouter>
-        //         <Route render={ props => (
-        //             <TransitionGroup>
-        //                 <CSSTransition
-        //                     classNames={ this.state.transicao }
-        //                     key={ props.location.pathname.split('/')[1] || '/' }
-        //                     timeout={ 2000 }
-        //                 >
-        //                     <Switch location={ props.location }>
-        //                         <Route
-        //                             path='/acesso'
-        //                             component={ Acesso }
-        //                         />
-        //                         <Route
-        //                             path='/inicio'
-        //                             component={ Inicio }
-        //                         />
-        //                         <Autenticado
-        //                             path='/pagina1'
-        //                             component={ Pagina1 }
-        //                         />
-        //                         {/* <Route
-        //                             path='/pagina1'
-        //                             component={ Pagina1 }
-        //                         /> */}
-        //                         <Route
-        //                             path='/pagina2'
-        //                             component={ Pagina2 }
-        //                         />
-        //                     </Switch>
-        //                 </CSSTransition>
-        //             </TransitionGroup>
-        //         ) } />
-        //     </HashRouter>
-        // );
     }
 }
 
