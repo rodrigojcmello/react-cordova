@@ -1,4 +1,4 @@
-@import "../../assets/scss/index.scss";
+@import "../../assets/scss/generico/index.scss";
 
 .pagina1 {
     input {
@@ -10,11 +10,6 @@
         line-height: 36px;
         padding: 0 12px;
         background-color: $cor1;
-    }
-}
-
-.tela {
-    @include tablet {
-        background-color: red !important;
+        color: white;
     }
 }

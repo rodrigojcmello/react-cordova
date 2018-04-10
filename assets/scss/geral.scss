@@ -1,0 +1,12 @@
+* {
+    /* Inclui content, padding e border à algura e largura */
+    box-sizing: border-box;
+}
+
+body {
+    /* Remove a margem padrão de 8px */
+    margin: 0;
+
+    /* Impede que haja barras de rolagem no body */
+    overflow: hidden;
+}

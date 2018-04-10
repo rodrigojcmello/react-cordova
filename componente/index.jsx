@@ -20,7 +20,7 @@ if (process.env.NODE_ENV == 'production') console.log = () => {};
 
 // Estilo ------------------------------------------------------------------------------------------
 
-import '../assets/html/pcss/_index.pcss';
+import '../assets/scss/index.scss';
 
 // Componente --------------------------------------------------------------------------------------
 
