@@ -29,6 +29,18 @@ const config = {
                 exclude: /node_modules/
             },
             {
+                test: /\.scss$/,
+                use: [
+                    'style-loader', {
+                        loader: 'css-loader',
+                        options: { sourceMap: !producao }
+                    }, {
+                        loader: 'sass-loader',
+                        options: { sourceMap: !producao }
+                    }
+                ]
+            },
+            {
                 test: /\.p?css$/,
                 use: [
                     'style-loader',

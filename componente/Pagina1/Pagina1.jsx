@@ -1,4 +1,4 @@
-import './Pagina1.pcss';
+import './Pagina1.scss';
 
 class Pagina1 extends Component {
     constructor(props) {
