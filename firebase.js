@@ -114,6 +114,14 @@ const Firebase = {
 
             }
 
+        },
+
+        desconectar: (atualizarUsuario) => {
+            firebase.auth().signOut().then(() => {
+                atualizarUsuario({});
+            }).catch((erro) => {
+                console.log('Firebase Autenticação - Erro ao desconectar usuário', erro);
+            });
         }
 
     }

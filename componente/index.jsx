@@ -11,7 +11,7 @@ import Firebase from '../firebase';
 import Cadastro from './Cadastro/Cadastro.jsx';
 import Acesso from './Acesso/Acesso.jsx';
 import Inicio from './Inicio/Inicio.jsx';
-import Pagina1 from './Pagina1/Pagina1.jsx';
+import Categoria from './Categoria/Categoria.jsx';
 import Pagina2 from './Pagina2/Pagina2.jsx';
 
 // Produção ----------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class App extends Component {
         Firebase.usuario.cadastrar.facebook(this.atualizarUsuario.bind(this));
     }
     desconectarUsuario() {
-        this.setState({ usuario: {} });
+        Firebase.usuario.desconectar(this.atualizarUsuario.bind(this));
     }
     atualizarNotas(notas) {
         console.log('Index - atualizarNotas()', notas);
@@ -82,19 +82,19 @@ class App extends Component {
                                 /> } />
                                 <Route path='/acesso' component={ () => (
                                     this.state.usuario.uid ?
-                                    <Redirect to='/pagina1' /> :
+                                    <Redirect to='/categoria' /> :
                                     <Acesso
                                         autenticarFacebook={ this.autenticarFacebook.bind(this) }
                                     />
                                 ) } />
                                 <Route path='/inicio' component={ Inicio } />
                                 <Autenticado
-                                    componente={ Pagina1 }
+                                    componente={ Categoria }
                                     desconectarUsuario={ this.desconectarUsuario.bind(this) }
                                     Firebase={ Firebase }
                                     id_usuario={ this.state.usuario.uid }
                                     notas={ this.state.notas }
-                                    path='/pagina1'
+                                    path='/categoria'
                                 />
                                 <Route path='/pagina2' component={ Pagina2 } />
                             </Switch>

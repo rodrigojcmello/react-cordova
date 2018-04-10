@@ -1,6 +1,6 @@
-import './Pagina1.scss';
+import './Categoria.scss';
 
-class Pagina1 extends Component {
+class Categoria extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,7 +12,7 @@ class Pagina1 extends Component {
         this.setState({ entrada: evento.target.value });
     }
     enviarNota(evento) {
-        console.log('Pagina1 - enviarNota()');
+        console.log('Categoria - enviarNota()');
         evento.preventDefault();
         this.props.Firebase.nota.adicionar({
             collection: store.get('usuario').uid + '/' + 'notas/gerais',
@@ -28,24 +28,24 @@ class Pagina1 extends Component {
     // Ciclô ---------------------------------------------------------------------------------------
 
     componentDidMount() {
-        console.log('Pagina1 - componentDidMount()');
+        console.log('Categoria - componentDidMount()');
     }
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('Pagina1 - getDerivedStateFromProps nextProps', nextProps);
-        console.log('Pagina1 - getDerivedStateFromProps prevState', prevState);
+        console.log('Categoria - getDerivedStateFromProps nextProps', nextProps);
+        console.log('Categoria - getDerivedStateFromProps prevState', prevState);
         if (nextProps.firebaseInit === prevState.firebaseInit) {
             return null;
         }
         return { firebaseInit: true };
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('Pagina1 - componentDidUpdate prevState', prevState);
-        console.log('Pagina1 - componentDidUpdate this.state', this.state);
-        console.log('Pagina1 - componentDidUpdate prevProps', prevProps);
-        console.log('Pagina1 - componentDidUpdate snapshot', snapshot);
+        console.log('Categoria - componentDidUpdate prevState', prevState);
+        console.log('Categoria - componentDidUpdate this.state', this.state);
+        console.log('Categoria - componentDidUpdate prevProps', prevProps);
+        console.log('Categoria - componentDidUpdate snapshot', snapshot);
         if (!this.state.firebaseInit_2) {
             if (prevState.firebaseInit) {
-                console.log('Pagina1 - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
+                console.log('Categoria - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
                 console.log('--------------------------------------------------------------------');
                 this.setState({ firebaseInit_2: true });
                 this.props.Firebase.nota.sincronizar(this.definirNotas.bind(this));
@@ -56,7 +56,7 @@ class Pagina1 extends Component {
     // ---------------------------------------------------------------------------------------------
 
     render() {
-        console.log('Pagina1 - render this.state', this.state);
+        console.log('Categoria - render this.state', this.state);
         return (
             <div className='tela pagina1'>
                 <button onClick={ this.props.desconectarUsuario }>Sair</button>
@@ -86,4 +86,4 @@ class Pagina1 extends Component {
     }
 }
 
-export default Pagina1;
+export default Categoria;
