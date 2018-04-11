@@ -62,7 +62,7 @@ class Categoria extends Component {
         return (
             <div className='tela pagina1'>
                 <button onClick={ this.props.desconectarUsuario }>Sair</button>
-                <h1>Página 1</h1>
+                <h1>Categoria 1</h1>
                 <ul>
                     { _.map(this.props.notas, (nota, index) => {
                         return (
