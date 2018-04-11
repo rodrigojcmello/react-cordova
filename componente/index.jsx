@@ -56,6 +56,12 @@ class App extends Component {
         evento.preventDefault();
         Firebase.usuario.cadastrar.facebook(this.atualizarUsuario.bind(this));
     }
+    atualizarTransicaoVoltar() {
+        this.setState({ transicao: 'esmanhecer-voltar' });
+    }
+    atualizarTransicaoAvancar() {
+        this.setState({ transicao: 'esmanhecer-avancar' });
+    }
     desconectarUsuario() {
         Firebase.usuario.desconectar(this.atualizarUsuario.bind(this));
     }
@@ -79,6 +85,7 @@ class App extends Component {
                             <Switch location={ props.location }>
                                 <Route path='/cadastro' render={ () => <Cadastro
                                     Firebase={ Firebase }
+                                    atualizarTransicaoAvancar={ this.atualizarTransicaoAvancar.bind(this) }
                                 /> } />
                                 <Route path='/acesso' component={ () => (
                                     this.state.usuario.uid ?
@@ -95,6 +102,7 @@ class App extends Component {
                                     id_usuario={ this.state.usuario.uid }
                                     notas={ this.state.notas }
                                     path='/categoria'
+                                    atualizarTransicaoVoltar={ this.atualizarTransicaoVoltar.bind(this) }
                                 />
                                 <Route path='/pagina2' component={ Pagina2 } />
                             </Switch>

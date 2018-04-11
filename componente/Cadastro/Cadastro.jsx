@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './Cadastro.pcss';
 
 class Cadastro extends Component {
@@ -30,7 +32,7 @@ class Cadastro extends Component {
     }
     render() {
         return (
-            <div className='tela Cadastro'>
+            <div className='tela cadastro'>
                 <h1>Cadastro</h1>
                 <form onSubmit={ this.cadastrarUsuario.bind(this) }>
                     <input
@@ -60,6 +62,7 @@ class Cadastro extends Component {
                     <button className='botao'>
                         Enviar
                     </button>
+                    <Link to='/categoria' onClick={ this.props.atualizarTransicaoAvancar }>Categoria</Link>
                 </form>
             </div>
         );

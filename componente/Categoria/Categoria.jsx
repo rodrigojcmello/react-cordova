@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './Categoria.scss';
 
 class Categoria extends Component {
@@ -81,6 +83,7 @@ class Categoria extends Component {
                         Enviar
                     </button>
                 </form>
+                <Link to='/cadastro' onClick={ this.props.atualizarTransicaoVoltar }>Cadastro</Link>
             </div>
         );
     }
