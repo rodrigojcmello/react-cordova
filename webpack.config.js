@@ -86,22 +86,33 @@ const config = {
 // Produção ------------------------------------------------------------------------------------------------------------
 
 if (producao) {
+
+    // Persiste a variável de ambiente em produção
     config.plugins.push(
         new webpack.DefinePlugin({
             'process.env': { 'NODE_ENV': JSON.stringify('production') }
         })
     );
+
+    // Remove os logs
+    config.plugins.push(['transform-remove-console']);
+
 }
 
 // Desenvolvimento -----------------------------------------------------------------------------------------------------
 
 else {
+
+    // Persiste a variável de ambiente em desenvolvimento
     config.plugins.push(
         new webpack.DefinePlugin({
             'process.env': { 'NODE_ENV': JSON.stringify('development') }
         })
     );
+
+    // Mapeia o código para o navegador
     config.devtool = 'inline-source-map';
+
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

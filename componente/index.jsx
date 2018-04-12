@@ -14,10 +14,6 @@ import Inicio from './Inicio/Inicio.jsx';
 import Categoria from './Categoria/Categoria.jsx';
 import Pagina2 from './Pagina2/Pagina2.jsx';
 
-// Produção ----------------------------------------------------------------------------------------
-
-if (process.env.NODE_ENV == 'production') console.log = () => {};
-
 // Estilo ------------------------------------------------------------------------------------------
 
 import '../assets/scss/index.scss';
