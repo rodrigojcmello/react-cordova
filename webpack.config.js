@@ -3,6 +3,7 @@ const html = require('html-webpack-plugin');
 const producao = process.env.NODE_ENV == 'production';
 
 const config = {
+    mode: producao ? 'production' : 'development',
     entry: './componente/index.jsx',
     output: {
         filename: 'pacote.min.js',
@@ -88,11 +89,11 @@ const config = {
 if (producao) {
 
     // Persiste a variável de ambiente em produção
-    config.plugins.push(
-        new webpack.DefinePlugin({
-            'process.env': { 'NODE_ENV': JSON.stringify('production') }
-        })
-    );
+    // config.plugins.push(
+    //     new webpack.DefinePlugin({
+    //         'process.env': { 'NODE_ENV': JSON.stringify('production') }
+    //     })
+    // );
 
     // Remove os logs
     config.plugins.push(['transform-remove-console']);
@@ -104,11 +105,11 @@ if (producao) {
 else {
 
     // Persiste a variável de ambiente em desenvolvimento
-    config.plugins.push(
-        new webpack.DefinePlugin({
-            'process.env': { 'NODE_ENV': JSON.stringify('development') }
-        })
-    );
+    // config.plugins.push(
+    //     new webpack.DefinePlugin({
+    //         'process.env': { 'NODE_ENV': JSON.stringify('development') }
+    //     })
+    // );
 
     // Mapeia o código para o navegador
     config.devtool = 'inline-source-map';

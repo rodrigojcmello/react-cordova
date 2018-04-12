@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "NODE_ENV=development webpack-dev-server --mode development",
-        "build": "NODE_ENV=development webpack-cli --mode development",
-        "android": "NODE_ENV=development webpack-cli --mode development && cd cordova && cordova run android"
+        "start": "NODE_ENV=development webpack-dev-server",
+        "build": "NODE_ENV=development webpack-cli",
+        "android": "NODE_ENV=development webpack-cli && cd cordova && cordova run android"
     },
     "author": "Rodrigo José Carvalho de Mello",
     "license": "ISC",
