@@ -70,7 +70,7 @@ class App extends Component {
         this.setState({ notas: notas });
     }
     componentDidMount() {
-        Firebase.init(this.atualizarNotas.bind(this));
+        Firebase.init(this.state.usuario.uid, this.atualizarNotas.bind(this));
     }
     render() {
         return (

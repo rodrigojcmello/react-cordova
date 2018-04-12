@@ -11,22 +11,24 @@ const Firebase = {
 
     // Firestore -----------------------------------------------------------------------------------
 
-    init: (atualizarFirebaseInit) => {
+    init: (id_usuario, atualizarNotas) => {
         console.log('Firebase Firestore - init()');
         firebase.firestore().enablePersistence()
         .then(() => {
             console.log('Firebase Firestore - base de dados inicializada');
             Firebase.db = firebase.firestore();
-            atualizarFirebaseInit();
+            atualizarNotas();
+            Firebase.nota.sincronizar(id_usuario, atualizarNotas);
         })
         .catch((erro) => {
-            if (erro.code == 'failed-precondition') {
-                console.log('Erro na persistencia dos dados 1');
-            } else if (erro.code == 'unimplemented') {
-                console.log('Erro na persistencia dos dados 2');
-            } else {
-                console.log('Erro na persistencia dos dados 3');
-            }
+            // if (erro.code == 'failed-precondition') {
+            //     console.log('Erro na persistencia dos dados 1');
+            // } else if (erro.code == 'unimplemented') {
+            //     console.log('Erro na persistencia dos dados 2');
+            // } else {
+            //     console.log('Erro na persistencia dos dados 3');
+            // }
+            console.log('Erro na persistência de dados', erro);
         });
     },
 
@@ -47,18 +49,18 @@ const Firebase = {
             });
         },
 
-        sincronizar: (id_usuario, definirNotas) => {
+        sincronizar: (id_usuario, atualizarNotas) => {
             console.log('Firebase Firestore - sincronizar()');
             Firebase.db
-            .collection(`${ id_usuario }/notas`)
+            .collection(`${ id_usuario }/notas/gerais`)
             .onSnapshot((resultado) => {
                 console.log('Firebase Firestore - notas sincronizadas', resultado);
                 let notas = [];
                 resultado.forEach((doc) => {
                     notas.push(doc.data());
                 });
-               definirNotas(notas);
-           });
+                atualizarNotas(notas);
+            });
         }
 
     },
