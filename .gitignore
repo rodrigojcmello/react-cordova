@@ -4,3 +4,4 @@ cordova/plugins
 cordova/www
 cordova/res
 cordova/hooks
+package-lock.json
