@@ -32,33 +32,32 @@ class Categoria extends Component {
     componentDidMount() {
         console.log('Categoria - componentDidMount()');
     }
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('Categoria - getDerivedStateFromProps nextProps', nextProps);
-        console.log('Categoria - getDerivedStateFromProps prevState', prevState);
-        if (nextProps.firebaseInit === prevState.firebaseInit) {
-            return null;
-        }
-        return { firebaseInit: true };
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('Categoria - componentDidUpdate prevState', prevState);
-        console.log('Categoria - componentDidUpdate this.state', this.state);
-        console.log('Categoria - componentDidUpdate prevProps', prevProps);
-        console.log('Categoria - componentDidUpdate snapshot', snapshot);
-        if (!this.state.firebaseInit_2) {
-            if (prevState.firebaseInit) {
-                console.log('Categoria - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
-                console.log('--------------------------------------------------------------------');
-                this.setState({ firebaseInit_2: true });
-                this.props.Firebase.nota.sincronizar(this.definirNotas.bind(this));
-            }
-        }
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     console.log('Categoria - getDerivedStateFromProps nextProps', nextProps);
+    //     console.log('Categoria - getDerivedStateFromProps prevState', prevState);
+    //     if (nextProps.firebaseInit === prevState.firebaseInit) {
+    //         return null;
+    //     }
+    //     return { firebaseInit: true };
+    // }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log('Categoria - componentDidUpdate prevState', prevState);
+    //     console.log('Categoria - componentDidUpdate this.state', this.state);
+    //     console.log('Categoria - componentDidUpdate prevProps', prevProps);
+    //     console.log('Categoria - componentDidUpdate snapshot', snapshot);
+    //     if (!this.state.firebaseInit_2) {
+    //         if (prevState.firebaseInit) {
+    //             console.log('Categoria - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
+    //             console.log('--------------------------------------------------------------------');
+    //             this.setState({ firebaseInit_2: true });
+    //             this.props.Firebase.nota.sincronizar(this.definirNotas.bind(this));
+    //         }
+    //     }
+    // }
 
     // ---------------------------------------------------------------------------------------------
 
     render() {
-        console.log('Categoria - render this.state', this.state);
         return (
             <div className='tela pagina1'>
                 <button onClick={ this.props.desconectarUsuario }>Sair</button>
@@ -84,6 +83,7 @@ class Categoria extends Component {
                     </button>
                 </form>
                 <Link to='/cadastro' onClick={ this.props.atualizarTransicaoVoltar }>Cadastro</Link>
+                <button onClick={ this.props.buscarUsuario }>Usuário atual</button>
             </div>
         );
     }

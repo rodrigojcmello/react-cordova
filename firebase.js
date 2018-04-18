@@ -7,28 +7,21 @@ firebase.initializeApp({
     projectId: 'e-list-a8a7c'
 });
 
+
 const Firebase = {
 
     // Firestore -----------------------------------------------------------------------------------
 
-    init: (id_usuario, atualizarNotas) => {
+    init: (inicializarFirestore) => {
         console.log('Firebase Firestore - init()');
         firebase.firestore().enablePersistence()
         .then(() => {
-            console.log('Firebase Firestore - base de dados inicializada');
+            console.log('Firebase Firestore - inicializado');
             Firebase.db = firebase.firestore();
-            atualizarNotas();
-            Firebase.nota.sincronizar(id_usuario, atualizarNotas);
+            inicializarFirestore();
         })
         .catch((erro) => {
-            // if (erro.code == 'failed-precondition') {
-            //     console.log('Erro na persistencia dos dados 1');
-            // } else if (erro.code == 'unimplemented') {
-            //     console.log('Erro na persistencia dos dados 2');
-            // } else {
-            //     console.log('Erro na persistencia dos dados 3');
-            // }
-            console.log('Erro na persistência de dados', erro);
+            console.log('Firebase Firestore - erro na persistência de dados', erro);
         });
     },
 
@@ -65,58 +58,81 @@ const Firebase = {
 
     },
 
-    // Usuário -------------------------------------------------------------------------------------
+    // Autenticação --------------------------------------------------------------------------------
+
+    autenticacao: {
+
+        init: (atualizarUsuario) => {
+            console.log('Firebase.autenticacao.init()');
+            firebase.auth().onAuthStateChanged((usuario) => {
+                console.log('Firebase.autenticacao.init() - firebase.auth().onAuthStateChanged', usuario);
+                atualizarUsuario(usuario);
+            });
+        },
+
+        facebook: (atualizarUsuario) => {
+            console.log('Firebase.autenticacao.facebook()');
+            let provider = new firebase.auth.FacebookAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+            .then((resultado) => {
+                console.log('Firebase.autenticacao.facebook() - Usuário autenticado com Facebook', resultado);
+            }).catch((erro) => {
+                console.log('Firebase.autenticacao.facebook() - Erro ao autenticar usuário com Facebook', erro);
+            });
+        },
+
+    },
+
 
     usuario: {
 
-        cadastrar: {
-
-            email: ({ email, senha }) => {
-                firebase.auth().createUserWithEmailAndPassword(email, senha)
-                .then((retorno) => {
-                    console.log('Firebase - Usuário cadastrado com e-mail', retorno);
-                })
-                .catch((erro) => {
-                    console.log('Firebase - Erro ao cadastrar usuáiro com e-mail', erro);
-                });
-            },
-
-            facebook: (atualizarUsuario) => {
-                var provider = new firebase.auth.FacebookAuthProvider();
-                firebase.auth().signInWithPopup(provider)
-                .then((resultado) => {
-                    console.log('Firebase - Usuário cadastrado com Facebook', resultado);
-                    atualizarUsuario(resultado.user);
-                }).catch((error) => {
-                    console.log('Firebase - Erro ao cadastrar usuário com Facebook', error);
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // The email of the user's account used.
-                    var email = error.email;
-                    // The firebase.auth.AuthCredential type that was used.
-                    var credential = error.credential;
-                    // ...
-                });
-            }
-
+        atual: () => {
+            console.log('Firebase Autenticação - firebase.auth.currentUser', firebase.auth().currentUser);
+            return firebase.auth().currentUser;
         },
 
-        autenticar: {
 
-            email: ({ email, senha }) => {
 
-                firebase.auth().signInWithEmailAndPassword(email, senha)
-                .then((retorno) => {
-                    console.log('Firebase - Usuário autenticado com e-mail', retorno);
-                })
-                .catch((erro) => {
-                    console.log('Firebase - Erro ao autenticar usuário com e-mail', erro);
-                });
+        // cadastrar: {
+        //
+        //     email: ({ email, senha }) => {
+        //         firebase.auth().createUserWithEmailAndPassword(email, senha)
+        //         .then((retorno) => {
+        //             console.log('Firebase - Usuário cadastrado com e-mail', retorno);
+        //         })
+        //         .catch((erro) => {
+        //             console.log('Firebase - Erro ao cadastrar usuáiro com e-mail', erro);
+        //         });
+        //     },
+        //
+        //     facebook: (atualizarUsuario) => {
+        //         var provider = new firebase.auth.FacebookAuthProvider();
+        //         firebase.auth().signInWithPopup(provider)
+        //         .then((resultado) => {
+        //             console.log('Firebase Autenticação - Usuário autenticado com Facebook', resultado);
+        //             atualizarUsuario(resultado.user);
+        //         }).catch((erro) => {
+        //             console.log('Firebase Autenticação - Erro ao autenticar usuário com Facebook', erro);
+        //         });
+        //     }
+        //
+        // },
 
-            }
-
-        },
+        // autenticar: {
+        //
+        //     email: ({ email, senha }) => {
+        //
+        //         firebase.auth().signInWithEmailAndPassword(email, senha)
+        //         .then((retorno) => {
+        //             console.log('Firebase - Usuário autenticado com e-mail', retorno);
+        //         })
+        //         .catch((erro) => {
+        //             console.log('Firebase - Erro ao autenticar usuário com e-mail', erro);
+        //         });
+        //
+        //     }
+        //
+        // },
 
         desconectar: (atualizarUsuario) => {
             firebase.auth().signOut().then(() => {

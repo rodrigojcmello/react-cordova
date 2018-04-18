@@ -37,20 +37,37 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            firestore: false,
+
             transicao: 'esmanhecer-avancar',
-            usuario: store.get('usuario') ? store.get('usuario') : {},
-            firebaseInit: false,
+            // usuario: store.get('usuario') ? store.get('usuario') : {},
+            usuario: {},
             notas: []
         };
     }
+
+    // Métodos -------------------------------------------------------------------------------------
+
+    // Firebase
+
+    inicializarFirestore() {
+        this.setState({ firestore: true });
+    }
+
+    // Autenticação --------------------------------------------------------------------------------
+
+    buscarUsuario() {
+        Firebase.usuario.atual();
+    }
     atualizarUsuario(usuario) {
-        console.log('Index - atualizarUsuario()', usuario);
+        console.log('Index atualizarUsuario()', usuario);
+        if (!usuario) usuario = {};
         store.set('usuario', usuario);
         this.setState({ usuario: usuario });
     }
     autenticarFacebook(evento) {
         evento.preventDefault();
-        Firebase.usuario.cadastrar.facebook(this.atualizarUsuario.bind(this));
+        Firebase.autenticacao.facebook();
     }
     atualizarTransicaoVoltar() {
         this.setState({ transicao: 'esmanhecer-voltar' });
@@ -65,9 +82,42 @@ class App extends Component {
         console.log('Index - atualizarNotas()', notas);
         this.setState({ notas: notas });
     }
+
+
+    // Ciclô ---------------------------------------------------------------------------------------
+
     componentDidMount() {
-        Firebase.init(this.state.usuario.uid, this.atualizarNotas.bind(this));
+        // Firebase.init(this.inicializarFirestore.bind(this));
+        // this.buscarUsuario(this.atualizarUsuario.bind(this));
+        // Firebase.usuario.atual(this.atualizarUsuario.bind(this));
+        Firebase.autenticacao.init(this.atualizarUsuario.bind(this));
     }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     console.log('Index - getDerivedStateFromProps nextProps', nextProps);
+    //     console.log('Index - getDerivedStateFromProps prevState', prevState);
+    //     if (nextProps.firestore === prevState.firestore) { return null }
+    //     return { firestore: true };
+    // }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     console.log('Index - componentDidUpdate prevState', prevState);
+    //     console.log('Index - componentDidUpdate this.state', this.state);
+    //     console.log('Index - componentDidUpdate prevProps', prevProps);
+    //     console.log('Index - componentDidUpdate snapshot', snapshot);
+    //     if (!this.state.firestore_2) {
+    //         console.log('### 1');
+    //         if (prevState.firestore) {
+    //             console.log('### 2');
+    //             console.log('Index - componentDidUpdate prevState.firebaseInit', prevState.firebaseInit);
+    //             console.log('--------------------------------------------------------------------');
+    //             this.setState({ firestore_2: true });
+    //             console.log('Index - this.state.usuario.uid', this.state.usuario.uid);
+    //             Firebase.nota.sincronizar(this.state.usuario.uid, this.atualizarNotas.bind(this));
+    //         }
+    //     }
+    // }
+
+    // Render --------------------------------------------------------------------------------------
+
     render() {
         return (
             <HashRouter>
@@ -99,6 +149,7 @@ class App extends Component {
                                     notas={ this.state.notas }
                                     path='/categoria'
                                     atualizarTransicaoVoltar={ this.atualizarTransicaoVoltar.bind(this) }
+                                    buscarUsuario={ this.buscarUsuario.bind(this) }
                                 />
                                 <Route path='/pagina2' component={ Pagina2 } />
                             </Switch>
