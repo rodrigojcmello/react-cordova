@@ -38,10 +38,8 @@ class App extends Component {
         super(props);
         this.state = {
             firestore: false,
-
             transicao: 'esmanhecer-avancar',
-            // usuario: store.get('usuario') ? store.get('usuario') : {},
-            usuario: {},
+            usuario: store.get('usuario') ? store.get('usuario') : {},
             notas: []
         };
     }
