@@ -10,7 +10,7 @@ firebase.initializeApp({
 
 const Firebase = {
 
-    // Firestore -----------------------------------------------------------------------------------
+    // Base de dados ---------------------------------------------------------------------------------------------------
 
     init: (inicializarFirestore) => {
         console.log('Firebase Firestore - init()');
@@ -25,7 +25,7 @@ const Firebase = {
         });
     },
 
-    // Nota ----------------------------------------------------------------------------------------
+    // Nota --------------------------------------------------------------------
 
     nota: {
 
@@ -58,9 +58,11 @@ const Firebase = {
 
     },
 
-    // Autenticação --------------------------------------------------------------------------------
+    // Autenticação ----------------------------------------------------------------------------------------------------
 
     autenticacao: {
+
+        // Inicialização -------------------------------------------------------
 
         init: (atualizarUsuario) => {
             console.log('Firebase.autenticacao.init()');
@@ -69,6 +71,8 @@ const Firebase = {
                 atualizarUsuario(usuario);
             });
         },
+
+        // Facebook ------------------------------------------------------------
 
         facebook: (atualizarUsuario) => {
             console.log('Firebase.autenticacao.facebook()');
@@ -146,4 +150,4 @@ const Firebase = {
 
 };
 
-module.exports = Firebase;
+export default Firebase;

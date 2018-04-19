@@ -1,5 +1,6 @@
 // import estilo from './Inicio.pcss';
 import './Inicio.pcss';
+import imagem1 from './imagem.png';
 
 class Inicio extends Component {
     constructor(props) {
@@ -8,7 +9,7 @@ class Inicio extends Component {
     render() {
         return (
             <div className={ 'tela inicio' }>
-                <img src={ require('./imagem.png') } />
+                <img src={ imagem1 } />
                 Início
             </div>
         );

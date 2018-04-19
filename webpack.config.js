@@ -10,8 +10,8 @@ const config = {
         path: `${ __dirname }/cordova/www`
     },
     resolve: {
-        extensions: ['.js', '.jsx'],
-        mainFields: ['browser', 'main', 'module']
+        extensions: ['.js', '.jsx']
+        // mainFields: ['browser', 'main', 'module']
     },
     module: {
         rules: [
@@ -88,14 +88,8 @@ const config = {
 
 if (producao) {
 
-    // Persiste a variável de ambiente em produção
-    // config.plugins.push(
-    //     new webpack.DefinePlugin({
-    //         'process.env': { 'NODE_ENV': JSON.stringify('production') }
-    //     })
-    // );
+    // Remove os logs ----------------------------------------------------------
 
-    // Remove os logs
     config.plugins.push(['transform-remove-console']);
 
 }
@@ -104,19 +98,14 @@ if (producao) {
 
 else {
 
-    // Persiste a variável de ambiente em desenvolvimento
-    // config.plugins.push(
-    //     new webpack.DefinePlugin({
-    //         'process.env': { 'NODE_ENV': JSON.stringify('development') }
-    //     })
-    // );
+    // Mapeia o código para o navegador ----------------------------------------
 
-    // Mapeia o código para o navegador
     config.devtool = 'inline-source-map';
 
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
 
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+console.log('producao', producao);
+
 module.exports = config;
