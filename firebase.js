@@ -74,7 +74,7 @@ const Firebase = {
 
         // Facebook ------------------------------------------------------------
 
-        facebook: (atualizarUsuario) => {
+        facebook: () => {
             console.log('Firebase.autenticacao.facebook()');
             let provider = new firebase.auth.FacebookAuthProvider();
             firebase.auth().signInWithPopup(provider)
