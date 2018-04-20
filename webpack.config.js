@@ -34,30 +34,14 @@ const config = {
                 use: [
                     'style-loader', {
                         loader: 'css-loader',
-                        options: { sourceMap: !producao }
+                        options: {
+                            sourceMap: !producao,
+                            modules: true,
+                            localIdentName: '[name]__[local]--[hash:base64:5]'
+                        }
                     }, {
                         loader: 'sass-loader',
                         options: { sourceMap: !producao }
-                    }
-                ]
-            },
-            {
-                test: /\.p?css$/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            ident: 'postcss',
-                            sourceMap: 'inline',
-                            plugins: [
-                                require('postcss-import')(),
-                                require('precss')(),
-                                require('postcss-color-function')(),
-                                require('autoprefixer')(),
-                                require('postcss-calc')()
-                            ]
-                        }
                     }
                 ]
             },

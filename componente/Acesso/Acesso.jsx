@@ -1,4 +1,6 @@
-import './Acesso.pcss';
+import estilo from './Acesso.scss';
+
+// Componente ----------------------------------------------------------------------------------------------------------
 
 class Acesso extends Component {
     constructor(props) {
@@ -30,8 +32,8 @@ class Acesso extends Component {
     // }
     render() {
         return (
-            <div className='tela acesso'>
-                <h1>Acesso</h1>
+            <div className={ estilo.acesso }>
+                <h1 className={ estilo.titulo }>Acesso</h1>
                 <form onSubmit={ this.autenticarEmail.bind(this) }>
                     <input
                         className='campo'

@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 
-import './Cadastro.pcss';
-
 class Cadastro extends Component {
     constructor(props) {
         super(props);

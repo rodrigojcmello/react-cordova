@@ -1,6 +1,0 @@
-{
-  "_id": "_design/mydesign",
-  "filters": {
-    "myfilter": "function (doc, req) { return doc.usuario === req.query.usuario; }"
-  }
-}

@@ -1,5 +1,3 @@
-// import estilo from './Inicio.pcss';
-import './Inicio.pcss';
 import imagem1 from './imagem.png';
 
 class Inicio extends Component {

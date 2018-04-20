@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import createHistory from 'history/createHashHistory';
 const history = createHistory();
 
-// -------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 
 import Firebase from '../firebase';
 
@@ -14,11 +14,11 @@ import Inicio from './Inicio/Inicio.jsx';
 import Categoria from './Categoria/Categoria.jsx';
 import Pagina2 from './Pagina2/Pagina2.jsx';
 
-// Estilo ------------------------------------------------------------------------------------------
+// Estilo --------------------------------------------------------------------------------------------------------------
 
 import '../assets/scss/index.scss';
 
-// Componente --------------------------------------------------------------------------------------
+// Componente ----------------------------------------------------------------------------------------------------------
 
 const Autenticado = ({ componente: Componente, id_usuario, ...resto }) => (
     <Route { ...resto } render={ props => (
@@ -34,6 +34,7 @@ const Autenticado = ({ componente: Componente, id_usuario, ...resto }) => (
 );
 
 class App extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +45,7 @@ class App extends Component {
         };
     }
 
-    // Métodos -------------------------------------------------------------------------------------
+    // Métodos ---------------------------------------------------------------------------------------------------------
 
     // Firebase
 
@@ -52,7 +53,7 @@ class App extends Component {
         this.setState({ firestore: true });
     }
 
-    // Autenticação --------------------------------------------------------------------------------
+    // Autenticação ----------------------------------------------------------------------------------------------------
 
     buscarUsuario() {
         Firebase.usuario.atual();
