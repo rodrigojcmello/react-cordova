@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import Tela from '../_generico/Tela/Tela.jsx';
+
 import './Categoria.scss';
 
 class Categoria extends Component {
@@ -59,9 +61,9 @@ class Categoria extends Component {
 
     render() {
         return (
-            <div className='tela pagina1'>
+            <Tela>
                 <button onClick={ this.props.desconectarUsuario }>Sair</button>
-                <h1>Categoria 1</h1>
+                <h1>Categoria 1#</h1>
                 <ul>
                     { _.map(this.props.notas, (nota, index) => {
                         return (
@@ -84,7 +86,7 @@ class Categoria extends Component {
                 </form>
                 <Link to='/cadastro' onClick={ this.props.atualizarTransicaoVoltar }>Cadastro</Link>
                 <button onClick={ this.props.buscarUsuario }>Usuário atual</button>
-            </div>
+            </Tela>
         );
     }
 }

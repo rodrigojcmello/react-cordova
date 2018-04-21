@@ -1,0 +1,41 @@
+:global(.tela) {
+    background-color: rgb(163, 16, 16);
+    height: 100vh;
+    left: 0;
+    padding: 24px;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+}
+
+// Avançar ---------------------------------------------------------------------
+
+:global(.tela--esmanhecer-avancar-enter) {
+    left: 30vw;
+    opacity: 0;
+    z-index: 1;
+}
+:global(.tela--esmanhecer-avancar-enter-active) {
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s, left 0.6s;
+}
+:global(.tela--esmanhecer-avancar-enter-done) {
+    z-index: 1;
+}
+    
+// Voltar ----------------------------------------------------------------------
+
+:global(.tela--esmanhecer-voltar-enter) {
+    left: -30vw;
+    opacity: 0;
+    z-index: 1;
+}
+:global(.tela--esmanhecer-voltar-enter-active) {
+    left: 0;
+    opacity: 1;
+    transition: opacity 0.3s, left 0.6s;
+}
+:global(.tela--esmanhecer-voltar-enter-done) {
+    z-index: 1;
+}

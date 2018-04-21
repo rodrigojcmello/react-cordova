@@ -39,7 +39,7 @@ class App extends Component {
         super(props);
         this.state = {
             firestore: false,
-            transicao: 'esmanhecer-avancar',
+            transicao: 'tela--esmanhecer-avancar',
             usuario: store.get('usuario') ? store.get('usuario') : {},
             notas: []
         };
@@ -69,10 +69,10 @@ class App extends Component {
         Firebase.autenticacao.facebook();
     }
     atualizarTransicaoVoltar() {
-        this.setState({ transicao: 'esmanhecer-voltar' });
+        this.setState({ transicao: 'tela--esmanhecer-voltar' });
     }
     atualizarTransicaoAvancar() {
-        this.setState({ transicao: 'esmanhecer-avancar' });
+        this.setState({ transicao: 'tela--esmanhecer-avancar' });
     }
     desconectarUsuario() {
         Firebase.usuario.desconectar(this.atualizarUsuario.bind(this));

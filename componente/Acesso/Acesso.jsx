@@ -1,5 +1,7 @@
 import estilo from './Acesso.scss';
 
+import Tela from '../_generico/Tela/Tela.jsx';
+
 // Componente ----------------------------------------------------------------------------------------------------------
 
 class Acesso extends Component {
@@ -32,33 +34,35 @@ class Acesso extends Component {
     // }
     render() {
         return (
-            <div className={ estilo.acesso }>
-                <h1 className={ estilo.titulo }>Acesso</h1>
-                <form onSubmit={ this.autenticarEmail.bind(this) }>
-                    <input
-                        className='campo'
-                        onChange={ this.atualizarEmail.bind(this) }
-                        placeholder='e-mail'
-                        ref={ el => this.form.email = el }
-                        type='text'
-                        value={ this.state.email }
-                    />
-                    <input
-                        className='campo'
-                        onChange={ this.atualizarSenha.bind(this) }
-                        placeholder='senha'
-                        ref={ el => this.form.senha = el }
-                        type='password'
-                        value={ this.state.entrada }
-                    />
-                    <button className='botao'>
-                        Enviar
-                    </button>
-                </form>
-                <form onSubmit={ this.props.autenticarFacebook }>
-                    <button>Acessar com Facebook</button>
-                </form>
-            </div>
+            <Tela>
+                <div className={ estilo.acesso }>
+                    <h1 className={ estilo.titulo }>Acesso</h1>
+                    <form onSubmit={ this.autenticarEmail.bind(this) }>
+                        <input
+                            className='campo'
+                            onChange={ this.atualizarEmail.bind(this) }
+                            placeholder='e-mail'
+                            ref={ el => this.form.email = el }
+                            type='text'
+                            value={ this.state.email }
+                        />
+                        <input
+                            className='campo'
+                            onChange={ this.atualizarSenha.bind(this) }
+                            placeholder='senha'
+                            ref={ el => this.form.senha = el }
+                            type='password'
+                            value={ this.state.entrada }
+                        />
+                        <button className='botao'>
+                            Enviar
+                        </button>
+                    </form>
+                    <form onSubmit={ this.props.autenticarFacebook }>
+                        <button>Acessar com Facebook</button>
+                    </form>
+                </div>
+            </Tela>            
         );
     }
 }

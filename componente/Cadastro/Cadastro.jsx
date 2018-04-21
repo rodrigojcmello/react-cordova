@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Tela from '../_generico/Tela/Tela.jsx';
 
 class Cadastro extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Cadastro extends Component {
     }
     render() {
         return (
-            <div className='tela cadastro'>
+            <Tela>
                 <h1>Cadastro</h1>
                 <form onSubmit={ this.cadastrarUsuario.bind(this) }>
                     <input
@@ -62,7 +63,7 @@ class Cadastro extends Component {
                     </button>
                     <Link to='/categoria' onClick={ this.props.atualizarTransicaoAvancar }>Categoria</Link>
                 </form>
-            </div>
+            </Tela>
         );
     }
 }
